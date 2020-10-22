@@ -62,7 +62,7 @@ We got our password with the help of the checking the file!
 
 ## Level 5 -> Level 6
 The find command gets introduced, and oh boy, it is one powerful tool.
-In this level, we can use the -size option for find, to get the path to our file which contains the password.
+In this level, we can use the ```-size``` option for ```find```, to get the path to our file which contains the password.
 ```bash
 bandit5@bandit:~$ cd inhere/
 bandit5@bandit:~/inhere$ ls
@@ -83,13 +83,49 @@ bandit6@bandit:/home$ cd ..
 bandit6@bandit:/$ find -size 33c -user bandit7 -group bandit6 2>/dev/null
 ./var/lib/dpkg/info/bandit7.password
 ```
-The interesting bit, is the ```2>/dev/null``` part. It redirects all standard errors like ```Permission denied``` to /dev/null, and null automatically discards the output written to it.
+The interesting bit, is the ```2>/dev/null``` part. It redirects all standard errors like ```Permission denied``` to ```/dev/null```, and null automatically discards the output written to it.
 So we only get our one line, instead of a bulk of errors.
 Nice!
 
 ## Level 7 -> Level 8
+For our next challenge, we have to use ```grep```. We pipe the output of ```cat``` into ```grep```, which returns only the line containing the searched pattern.
+```bash
+bandit7@bandit:~$ ls
+data.txt
+bandit7@bandit:~$ cat data.txt | grep millionth
+millionth       cvX2JJa4CFALtqS87jk27qwqGhBM9plV
+```
+Easy breezy.
 
+## Level 8 -> Level 9
+The next data.txt contains a ton of duplicate lines, and we have to find teh single unique one.
+We will use ```sort``` and pipe the sorted output into ```uniq -u``` with which you can filter adjacent matching lines. With the ```-u``` argument, it outputs only unique lines.
+```bash
+bandit8@bandit:~$ sort data.txt | uniq -u
+UsvVyFSfZZWbi6wgC7dAFyFuR6jQQUhR
+```
 
+## Level 9 -> Level 10
+This file contains a lot of human-unreadable characters. We have to filter the human-readable strings and then grab our password from there.
+To filter the human-readable strings we use ```strings``` which returns only human-readable strings. We pipe that output into ```grep =``` because our password is appended at multiple characters of ```=```.
+```bash
+bandit9@bandit:~$ strings data.txt | grep =
+========== the*2i4
+=:G e
+========== password
+<I=zsGi
+Z)========== is
+A=|t&E
+Zdb=
+c^ LAh=3G
+*SF=s
+&========== truKLdjsbJ5g7yyJ2X2R0o3a5HQJFuLk
+S=A.H&^
+```
+And the lines with multiple ```=``` form our answer -> The password is X
+Great!
+
+## Level 10 -> Level 11
 
 
 
