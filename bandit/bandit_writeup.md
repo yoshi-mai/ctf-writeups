@@ -148,5 +148,9 @@ The password is 5Te8Y4drgCRfCx8ugdwuEX8KFC6k2EUu
 ```
 
 ## Level 12 -> Level 13
+We get a hexdump file. To reverse this hexdump, we can use ```xxd -r```.
+Now we can see with the help of ```file``` that it is a compressed file. We have to use ```file``` to find out what type of compression, and then depending on the compression type  use either ```gzip```, ```bzip2``` or ```tar -xf``` until the file is not compressed anymore. There are a lot of compression layers.
+
+But in the end, we made it!
 
 
