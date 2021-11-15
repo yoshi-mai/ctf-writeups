@@ -126,8 +126,27 @@ And the lines with multiple ```=``` form our answer -> The password is X
 Great!
 
 ## Level 10 -> Level 11
+We get a data.txt file with a string in it, that is encoded with base64.
 
+We pipe the string of the data.txt file into the ```base64``` decoder and get the password! Easy.
+```
+bandit10@bandit:~$ echo | cat data.txt | base64 --decode
+The password is IFukwKGsFW8MOq3IRFqrxE1hxTNEbUPR
+```
+## Level 11 -> Level 12
+Tricky. We have another data.txt file which contains absolute gibberish. The tips give us a hint, that all lowercase letters and uppercase letters [a-zA-Z] are rotated by 13 positions.
+We can use the ```tr``` command, to translate the letters 13 positions.
+```cat data.txt | tr '[a-zA-Z]' '[n-za-mN-ZA-M]'``` will do the magic. The characters in SET1 will get replaced by the characters in the same position in SET2. ```[a-zA-Z]``` includes exactly 52 characters (26 lower, 26 upper). Same goes for ```[n-za-mN-ZA-M]```.
+At position 0 we got 'a' in SET1 and 'n' in SET2.
+At position 1 we got 'b' in SET1 and 'o' in SET2.
+At position 2 we got 'c' in SET1 and 'p' in SET2.
+And so on....they are exactly 13 positions rotated. That is all.
 
+```
+bandit11@bandit:~$ cat data.txt | tr '[a-zA-Z]' '[n-za-mN-ZA-M]'
+The password is 5Te8Y4drgCRfCx8ugdwuEX8KFC6k2EUu
+```
 
+## Level 12 -> Level 13
 
 
